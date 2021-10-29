@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>房租信</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
+</head>
+<body>
+<input type="file" id="excel-file" accept=".xlsx">
+<button id="output" onclick="create()" disabled = "ture">輸出</button>
+<table id="table">
+    <thead>
+        <tr>
+        </tr>
+    </thead>
+    <tbody id="data">
+        <tr>
+        </tr>
+    </tbody>
+</table>
+<div>
+<div id="text"></div>
+<button onclick="deletetext()">清空</button>
+</div>
+<script>
+    //給input標籤繫結change事件，一上傳選中的.xls檔案就會觸發該函式
+    persons = []
+    tableNum = -1
+    monthEOver = true
+    $('#excel-file').change(function(e) {
+        var files = e.target.files;
+        var fileReader = new FileReader();
+        fileReader.onload = function(ev) {
+            try {
+                var data = ev.target.result
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                }) // 以二進位制流方式讀取得到整份excel表格物件
+                persons = []; // 儲存獲取到的資料
+            } catch (e) {
+                console.log('檔案型別不正確');
+                return;
+            }
+            // 表格的表格範圍，可用於判斷表頭是否數量是否正確
+            var fromTo = '';
+            // 遍歷每張表讀取
+            for (var sheet in workbook.Sheets) {
+                if (workbook.Sheets.hasOwnProperty(sheet)) {
+                    fromTo = workbook.Sheets[sheet]['!ref'];
+                    // console.log(fromTo);
+                    persons = persons.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
+                    // break; // 如果只取第一張表，就取消註釋這行
+                }
+            }
+            //在控制檯打印出來表格中的資料
+            // console.log(persons);
+        };
+        // 以二進位制方式開啟檔案
+        fileReader.readAsBinaryString(files[0]);
+        document.getElementById("output").disabled = false
+    });
+    
+    function create() {
+        for (index = 0; index < persons.length; index++) {
+            tableNum++
+            let newTr = document.createElement("tr")
+            newTr.id = tableNum
+            for (let i = 0; i < 15; i++) {
+                newTr.innerHTML += `<td>${persons[index][i]}</td>`
+            }
+            newTr.innerHTML += `<button Name="createtext" id="createtext${tableNum}" onclick="createtext(${tableNum})">製作文字</button>`
+            document.getElementById("data").appendChild(newTr)
+        }
+        document.getElementById("output").disabled = true
+        document.getElementsByName("createtext").disabled = false
+    }
+
+    function createtext(tableNum) {
+        let createtxt = document.createElement("p")
+        createtxt.id = `text${tableNum}`
+        let textbox = []
+        textbox[15]=""
+        // console.log(persons)
+        monthEOver = false
+        for (let i = 0; i < 15; i++) {
+            textbox[i] = persons[tableNum][i]
+            if (i == 4) {
+                // console.log(textbox[4])
+                for (let index = 0, stairD = 300, stairU = 350, monthEM = 6; stairD < textbox[4] ; index++, stairD += 50, stairU += 50, monthEM++) {
+                    // console.log("1")
+                    if (index == 0) {
+                        textbox[15] += `(`
+                    }
+                    if (textbox[4] > stairU) {
+                        // console.log("1")
+                        textbox[15] += `每月用電${stairD}~${stairU}電費${monthEM}元，`
+                    } else {
+                        // console.log("1")
+                        textbox[15] += `每月用電${stairD}~${textbox[4]}電費${monthEM}元)`
+                    }
+                    // console.log(textbox[15])
+                }
+            }
+        }
+        // console.log(textbox)
+        createtxt.innerText = `${textbox[1]}您好:
+        
+        自${textbox[13]}(用電度數:${textbox[2]})至${textbox[14]}(用電度數:${textbox[3]})，${textbox[7]}天用電${textbox[4]}度，平均每日用電為${textbox[10]}度，計NT$${textbox[9]}${textbox[15]}，煩請撥冗將前列金額併同租金(NT$${textbox[11]})，共計NT$${textbox[12]}匯入聯邦銀行雙和分行帳號，倘另有需要服務時，請不吝告知！
+        
+        
+        房東 王小姐`
+        createbut = document.createElement("div")
+        createbut.innerHTML += `<button onclick="copyEvent(${tableNum})">複製</button>`
+        document.getElementById("text").appendChild(createtxt)
+        document.getElementById("text").appendChild(createbut)
+        document.getElementById(`createtext${tableNum}`).disabled = true
+    }
+
+    function copyEvent(id) {
+        let str = document.getElementById(`text${id}`)
+        window.getSelection().selectAllChildren(str)
+        document.execCommand("Copy")
+    }
+
+    function deletetext() {
+        let target = document.getElementById(`text`)
+        target.innerHTML =""
+    }
+</script>
+</body>
+</html>
