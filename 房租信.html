@@ -91,18 +91,21 @@
             textbox[i] = persons[tableNum][i]
             if (i == 4) {
                 // console.log(textbox[4])
-                for (let index = 0, stairD = 300, stairU = 350, monthEM = 6; stairD < textbox[4] ; index++, stairD += 50, stairU += 50, monthEM++) {
+                for (let index = 0, stairD = 301, stairU = 310, monthEM = 6; stairD < textbox[4] ; index++, stairD += 10, stairU += 10, monthEM++) {
                     // console.log("1")
                     if (index == 0) {
-                        textbox[15] += `(`
+                        textbox[15] += `(300度以內每度5元，`
                     }
                     if (textbox[4] > stairU) {
                         // console.log("1")
-                        textbox[15] += `每月用電${stairD}~${stairU}電費${monthEM}元，`
-                    } else {
+                        textbox[15] += `${stairD}~${stairU}電費${monthEM}元，`
+                    } else if(textbox[4] < stairU) {
                         // console.log("1")
-                        textbox[15] += `每月用電${stairD}~${textbox[4]}電費${monthEM}元)`
+                        textbox[15] += `${stairD}~${textbox[4]}電費${monthEM}元)`
+                    } else {
+                        textbox[15] += `${textbox[4]}電費${monthEM}元)`
                     }
+                    
                     // console.log(textbox[15])
                 }
             }
