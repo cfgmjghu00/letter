@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>房租信v0.5</title>
+    <title>房租信v0.6</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
 </head>
@@ -90,24 +90,8 @@
         for (let i = 0; i < 15; i++) {
             textbox[i] = persons[tableNum][i]
             if (i == 4) {
+                eMore()
                 // console.log(textbox[4])
-                for (let index = 0, stairD = 301, stairU = 310, monthEM = 6; stairD <= textbox[4] ; index++, stairD += 10, stairU += 10, monthEM++) {
-                    // console.log("1")
-                    if (index == 0) {
-                        textbox[15] += `(300度以內每度5元，`
-                        }
-                        if (textbox[4] > stairU) {
-                            textbox[15] += `${stairD}~${stairU}電費${monthEM}元，`
-                        } else {
-                            if (textbox[4] == stairD) {
-                                textbox[15] += `${stairD}電費${monthEM}元)`
-                            } else {
-                                textbox[15] += `${stairD}~${textbox[4]}電費${monthEM}元)`
-                            }
-                            // console.log("1")
-                        }
-                    // console.log(textbox[15])
-                }
             }
         }
         // console.log(textbox)
@@ -122,6 +106,26 @@
         document.getElementById("text").appendChild(createtxt)
         document.getElementById("text").appendChild(createbut)
         document.getElementById(`createtext${tableNum}`).disabled = true
+    }
+
+    function eMore(params) {
+        for (let index = 0, stairD = 301, stairU = 310, monthEM = 6; stairD <= textbox[4] ; index++, stairD += 10, stairU += 10, monthEM++) {
+            // console.log("1")
+            if (index == 0) {
+                textbox[15] += `(300度以內每度5元，`
+            }
+            if (textbox[4] > stairU) {
+                textbox[15] += `${stairD}~${stairU}電費${monthEM}元，`
+            } else {
+                if (textbox[4] == stairD) {
+                    textbox[15] += `${stairD}電費${monthEM}元)`
+                } else {
+                    textbox[15] += `${stairD}~${textbox[4]}電費${monthEM}元)`
+                }
+                // console.log("1")
+            }
+            // console.log(textbox[15])
+        }
     }
 
     function copyEvent(id) {
