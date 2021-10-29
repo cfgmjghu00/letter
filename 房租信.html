@@ -26,7 +26,7 @@
 <script>
     //給input標籤繫結change事件，一上傳選中的.xls檔案就會觸發該函式
     persons = []
-    tableNum = -1
+    tableNum = 0
     monthEOver = true
     $('#excel-file').change(function(e) {
         var files = e.target.files;
@@ -59,6 +59,9 @@
         // 以二進位制方式開啟檔案
         fileReader.readAsBinaryString(files[0]);
         document.getElementById("output").disabled = false
+        let target = document.getElementById(`data`)
+        target.innerHTML =""
+        tableNum = -1        
     });
     
     function create() {
