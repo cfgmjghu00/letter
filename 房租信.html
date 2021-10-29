@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>房租信v1.0</title>
+    <title>房租信v1.1</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
 </head>
@@ -90,12 +90,12 @@
         for (let i = 0; i < 15; i++) {
             textbox[i] = persons[tableNum][i]
             if (i == 4) {
-                eMore(textbox)
+                if (textbox[i] > 300) {eMore(textbox)}
                 // console.log(textbox[4])
             }
-            if (i == 5) {
-                publicElectricity(textbox)
-                // console.log(textbox[5],textbox[6])
+            if (i == 6) {
+                if (textbox[i] > 0) {publicElectricity(textbox)}
+                console.log(textbox[5],textbox[6])
             }
         }
         // console.log(textbox)
