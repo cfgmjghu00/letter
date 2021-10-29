@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>房租信v1.2</title>
+    <title>房租信v1.3</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
 </head>
@@ -90,19 +90,19 @@
         monthEOver = false
         for (let i = 0; i < 15; i++) {
             textbox[i] = persons[tableNum][i]
-            if (i == 4) {
-                if (textbox[i] > 300) {eMore(textbox)}
-                // console.log(textbox[4])
-            }
-            if (i == 6) {
-                if (textbox[i] > 0) {publicElectricity(textbox)}
-                console.log(textbox[5],textbox[6])
-            }
+        }
+        if (textbox[i] > 300) {
+            eMore(textbox)
+            // console.log(textbox[4])
+        }
+        if (textbox[i] > 0) {
+            publicElectricity(textbox)
+            console.log(textbox[5],textbox[6])
         }
         // console.log(textbox)
         createtxt.innerText = `${textbox[1]}您好:
         
-        自${textbox[13]}(用電度數:${textbox[2]})至${textbox[14]}(用電度數:${textbox[3]})，${textbox[7]}天用電${textbox[4]}度，平均每日用電為${textbox[10]}度，計NT$${textbox[9]}${textbox[15]}，煩請撥冗將前列金額併同租金(NT$${textbox[11]})，共計NT$${textbox[12]}匯入聯邦銀行雙和分行帳號，倘另有需要服務時，請不吝告知！
+        自${textbox[13]}(用電度數:${textbox[2]})至${textbox[14]}(用電度數:${textbox[3]})，${textbox[7]}天用電${textbox[4]}度${textbox[16]}，平均每日用電為${textbox[10]}度，計NT$${textbox[9]}${textbox[15]}，煩請撥冗將前列金額併同租金(NT$${textbox[11]})，共計NT$${textbox[12]}匯入聯邦銀行雙和分行帳號，倘另有需要服務時，請不吝告知！
         
         
         房東 王小姐`
