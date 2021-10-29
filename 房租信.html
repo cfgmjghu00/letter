@@ -91,21 +91,35 @@
         for (let i = 0; i < 15; i++) {
             textbox[i] = persons[tableNum][i]
         }
-        if (textbox[4] > 300) {
-            eMore(textbox,4)
-            // console.log(textbox[4])
-        }
-        if (textbox[6] > 0) {
-            publicElectricity(textbox)
-            console.log(textbox[5],textbox[6])
-        }
-        // console.log(textbox)
-        createtxt.innerText = `${textbox[1]}您好:
+        if (textbox[0] == "4F") {
+            console.log(textbox[1],textbox[6])
+            if (textbox[6] > 400) {
+                eMore(textbox,6,400)
+            }
+            createtxt.innerText = `${textbox[1]}您好:
+
+            自${textbox[13]}(總電表度數:${textbox[2]})至${textbox[14]}(總電表度數:${textbox[3]})，共計用電${textbox[4]}度，扣除5樓總用電${textbox[5]}度，${textbox[7]}天共計用電${textbox[6]}度，電費每度NT$${textbox[8]}，計NT$${textbox[9]}${textbox[15]}，請撥冗將前列金額(NT$${textbox[9]})併同租金NT$${textbox[11]}，合計NT$${textbox[12]}匯入聯邦銀行雙和分行帳號，倘另有需要服務時，請不吝告知！ 
+
+            房東 王小姐`
+        } else {
+            console.log(textbox[1],textbox[11])
+            if (textbox[4] > 300) {
+                eMore(textbox,4,300)
+                // console.log(textbox[4])
+            }
+            if (textbox[6] > 0) {
+                publicElectricity(textbox)
+                console.log(textbox[5],textbox[6])
+            }
+            // console.log(textbox)
+            createtxt.innerText = `${textbox[1]}您好:
+            
+            自${textbox[13]}(用電度數:${textbox[2]})至${textbox[14]}(用電度數:${textbox[3]})，${textbox[7]}天用電${textbox[4]}度${textbox[16]}，平均每日用電為${textbox[10]}度，計NT$${textbox[9]}${textbox[15]}，煩請撥冗將前列金額併同租金(NT$${textbox[11]})，共計NT$${textbox[12]}匯入聯邦銀行雙和分行帳號，倘另有需要服務時，請不吝告知！
+            
+            
+            房東 王小姐`
+        } 
         
-        自${textbox[13]}(用電度數:${textbox[2]})至${textbox[14]}(用電度數:${textbox[3]})，${textbox[7]}天用電${textbox[4]}度${textbox[16]}，平均每日用電為${textbox[10]}度，計NT$${textbox[9]}${textbox[15]}，煩請撥冗將前列金額併同租金(NT$${textbox[11]})，共計NT$${textbox[12]}匯入聯邦銀行雙和分行帳號，倘另有需要服務時，請不吝告知！
-        
-        
-        房東 王小姐`
         createbut = document.createElement("div")
         createbut.innerHTML += `<button onclick="copyEvent(${tableNum})">複製</button>`
         document.getElementById("text").appendChild(createtxt)
@@ -113,11 +127,12 @@
         document.getElementById(`createtext${tableNum}`).disabled = true
     }
 
-    function eMore(textbox,num) {
-        for (let index = 0, stairD = 301, stairU = 310, monthEM = 6; stairD <= textbox[num] ; index++, stairD += 10, stairU += 10, monthEM++) {
+    function eMore(textbox,num,num2) {
+        textbox[15] = ""
+        for (let index = 0, stairD = num2 + 1, stairU = num2 + 10, monthEM = 6; stairD <= textbox[num] ; index++, stairD += 10, stairU += 10, monthEM++) {
             // console.log("1")
             if (index == 0) {
-                textbox[15] += `(300度以內每度5元，`
+                textbox[15] += `(${num2}度以內每度5元，`
             }
             if (textbox[num] > stairU) {
                 textbox[15] += `${stairD}~${stairU}電費${monthEM}元，`
@@ -134,9 +149,10 @@
     }
 
     function publicElectricity(textbox) {
+        textbox[16] = ""
         textbox[16] += `，分攤公電計${textbox[5]}度，合計${textbox[6]}度`
         if (textbox[6] > 300) {
-            eMore(textbox,6)
+            eMore(textbox,6,300)
         }
     }
 
