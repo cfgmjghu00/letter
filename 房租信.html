@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>房租信</title>
+    <title>房租信v0.2</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
 </head>
 <body>
-<p>上傳電表v0.1</p>
+<p>上傳電表</p>
 <input type="file" id="excel-file" accept=".xlsx">
 <button id="output" onclick="create()" disabled = "ture">輸出</button>
 <table id="table">
@@ -98,12 +98,14 @@
                     }
                     if (textbox[4] > stairU) {
                         // console.log("1")
-                        textbox[15] += `${stairD}~${stairU}電費${monthEM}元，`
-                    } else if(textbox[4] < stairU) {
+                        if (textbox[4] == stairD) {
+                            textbox[15] += `${stairD}電費${monthEM}元，`
+                        } else {
+                            textbox[15] += `${stairD}~${stairU}電費${monthEM}元，`
+                        }
+                    } else {
                         // console.log("1")
                         textbox[15] += `${stairD}~${textbox[4]}電費${monthEM}元)`
-                    } else {
-                        textbox[15] += `${textbox[4]}電費${monthEM}元)`
                     }
                     
                     // console.log(textbox[15])
