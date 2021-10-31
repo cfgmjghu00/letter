@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>房租信v1.4</title>
+    <title>房租信v1.5</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
 </head>
@@ -129,7 +129,7 @@
 
     function eMore(textbox,num,num2) {
         textbox[15] = ""
-        for (let index = 0, stairD = num2 + 1, stairU = num2 + 10, monthEM = 6; stairD <= textbox[num] ; index++, stairD += 10, stairU += 10, monthEM++) {
+        for (let index = 0, stairD = num2 + 1, stairU = num2 + 50, monthEM = 6; stairD <= textbox[num] ; index++, stairD += 50, stairU += 50, monthEM++) {
             // console.log("1")
             if (index == 0) {
                 textbox[15] += `(${num2}度以內每度5元，`
