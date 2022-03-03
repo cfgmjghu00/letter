@@ -81,8 +81,12 @@
     }
 
     function createtext(tableNum) {
+        let createDateTxt = document.createElement("p")
+        createDateTxt.id = `datetext${tableNum}`
         let createtxt = document.createElement("p")
         createtxt.id = `text${tableNum}`
+        createDateTxt.innerText = `${textbox[13]}~${textbox[14]}用電情形`
+        createbut.innerHTML += `<button onclick="copyEventDate(${tableNum})">複製</button>`
         let textbox = []
         textbox[19]=""
         textbox[20]=""
@@ -162,6 +166,12 @@
     
     function copyEvent(id) {
         let str = document.getElementById(`text${id}`)
+        window.getSelection().selectAllChildren(str)
+        document.execCommand("Copy")
+    }
+    
+    function copyEventDate(id) {
+        let str = document.getElementById(`datetext${id}`)
         window.getSelection().selectAllChildren(str)
         document.execCommand("Copy")
     }
