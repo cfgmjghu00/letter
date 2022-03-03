@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>房租信v3.0</title>
+    <title>房租信v3.1</title>
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
     <script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
 </head>
@@ -85,7 +85,8 @@
         createDateTxt.id = `datetext${tableNum}`
         let createtxt = document.createElement("p")
         createtxt.id = `text${tableNum}`
-        createbut.innerHTML += `<button onclick="copyEventDate(${tableNum})">複製</button>`
+        createbut1 = document.createElement("div")
+        createbut1.innerHTML += `<button onclick="copyEventDate(${tableNum})">複製</button>`
         let textbox = []
         textbox[19]=""
         textbox[20]=""
@@ -131,6 +132,8 @@
         }
         createbut = document.createElement("div")
         createbut.innerHTML += `<button onclick="copyEvent(${tableNum})">複製</button>`
+        document.getElementById("text").appendChild(createDateTxt)
+        document.getElementById("text").appendChild(createbut1)
         document.getElementById("text").appendChild(createtxt)
         document.getElementById("text").appendChild(createbut)
         document.getElementById(`createtext${tableNum}`).disabled = true
